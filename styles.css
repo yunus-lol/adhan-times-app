@@ -7,9 +7,9 @@
 }
 
 body {
-  height: 100vh;
   background-image: linear-gradient(to bottom right, rgb(57, 0, 57), rgb(0, 0, 69), rgb(14, 14, 14));
-  overflow: hidden;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .top-row {
@@ -64,7 +64,7 @@ body {
 
 .sunrise-icon {
   font-size: 2em;
-  padding: 0.5em;
+  padding: 0.4em;
   border: 1px solid rgba(62, 62, 62, 0.7);
   background-color: rgba(62, 62, 62, 0.2);;
   border-radius: 10px;
@@ -80,4 +80,42 @@ body {
   justify-content: space-between;
   margin: 0.2em;
   font-size: 0.8em;
+}
+
+.prayer-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: rgba(0, 0, 0, 0.15);
+  margin: 2em;
+  padding: 1em;
+  border-radius: 15px;
+}
+
+.prayer-card {
+  background-color: rgba(62, 62, 62, 0.25);
+  margin: 1em;
+  padding: 2em;
+  border-radius: 10px;
+}
+
+.prayer-name, .prayer-icon, .prayer-time {
+  text-align: center;
+}
+
+.prayer-name {
+  margin-bottom: 0.6em;
+}
+
+.prayer-icon {
+  margin: 0 0.5em;
+  font-size: 2.5em;
+  padding: 0.3em;
+  border: 1px solid rgba(62, 62, 62, 0.7);
+  background-color: rgba(62, 62, 62, 0.2);;
+  border-radius: 10px;
+}
+
+.prayer-time {
+  font-size: 1.5em;
+  padding-top: 1em;
 }

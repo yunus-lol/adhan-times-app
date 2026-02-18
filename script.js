@@ -15,6 +15,7 @@ function displayInfo() {
   displayTime();
   displaySunrise();
   displayJammah();
+  displayPrayerCards();
 }
 
 function displayTime() {
@@ -56,9 +57,10 @@ function displaySunrise() {
   sunrise.appendChild(sunriseIcon);
 }
 
+const prayerNames = ["Fajr", "Dhuhr", "Asr",  "Maghrib", "Isha"];
+
 function displayJammah() {
   const jammah = document.querySelector(".jammah");
-  const prayerNames = ["Fajr", "Dhuhr", "Asr",  "Maghrib", "Isha"];
   const arr = [prayerData.fajr_jamat, prayerData.dhuhr_jamat, prayerData.asr_jamat, prayerData.magrib_jamat, prayerData.isha_jamat];
   arr.forEach(prayer => {
     const card = document.createElement("div");
@@ -73,5 +75,24 @@ function displayJammah() {
     `;
 
     jammah.appendChild(card);
+  });
+}
+
+function displayPrayerCards() {
+  const prayerSection = document.querySelector(".prayer-cards");
+  const arr = [prayerData.fajr, prayerData.dhuhr, prayerData.asr, prayerData.magrib, prayerData.isha];
+  const iconsArr = ["🌇", "☀️", "🤲", "🕌", "🌙"];
+  arr.forEach(prayer => {
+    const card = document.createElement("div");
+    card.classList.add("prayer-card");
+    const index = arr.indexOf(prayer);
+
+    card.innerHTML = `
+      <h2 class="prayer-name">${prayerNames[index]}</h2>
+      <div class="prayer-icon">${iconsArr[index]}</div>
+      <h4 class="prayer-time">${arr[index]}</h4>
+    `;
+
+    prayerSection.appendChild(card);
   });
 }
