@@ -5,7 +5,6 @@ async function getData() {
   const response = await fetch(url);
   const data = await response.json();
   prayerData = data
-  console.log(data);
   displayInfo();
 }
 
@@ -16,6 +15,7 @@ function displayInfo() {
   displaySunrise();
   displayJammah();
   displayPrayerCards();
+  displayDate();
 }
 
 function displayTime() {
@@ -96,3 +96,64 @@ function displayPrayerCards() {
     prayerSection.appendChild(card);
   });
 }
+
+function displayDate() {
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const date = new Date();
+
+  const dayIndex = date.getDay() - 1;
+  const day = dayIndex === -1 ? "Sun" : days[dayIndex]
+
+  const monthIndex = date.getMonth();
+  const month = months[monthIndex];
+
+  const dateDiv = document.querySelector(".date");
+  dateDiv.textContent = `${day}, ${month} ${date.getDate()}`;
+}
+
+function showNotification() { 
+  const arr = [prayerData.fajr, prayerData.dhuhr, prayerData.asr, prayerData.magrib, prayerData.isha];
+  const now = new Date();
+  const currentHour = now.getHours();
+  const currentMinutes = now.getMinutes();
+
+  arr.forEach((prayer, index) => {
+    const split = prayer.split(":");
+    const hour = Number(split[0]);
+    const minute = Number(split[1]);
+
+    const prayerDate = new Date();
+    prayerDate.setHours(hour);
+    prayerDate.setMinutes(minute);
+    prayerDate.setSeconds(0);
+
+    const time = new Date(prayerDate.getTime() - 10 * 60000);
+
+    if (now.getHours() === time.getHours() && now.getMinutes() === time.getMinutes()) {
+      new Notification(`${prayerNames[index]} in 10 minutes`);
+    }
+
+    if (currentHour === hour && currentMinutes === minute) {
+      new Notification(`It is ${prayerNames[index]} go pray`);
+    }
+
+  });
+}
+
+const enableNotifications = document.querySelector(".enable-notifications");
+
+enableNotifications.addEventListener("click", () => {
+  Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+      new Notification("Notifications enabled!", {
+        body: "You will be notified 10 minutes before each prayer",
+      });
+      
+      setInterval(showNotification, 60000);
+    } else {
+      alert("Permission denied");
+    }
+  });
+});

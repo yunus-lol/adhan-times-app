@@ -12,6 +12,33 @@ body {
   background-attachment: fixed;
 }
 
+.top-bar {
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 0.8em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  margin-left: 1.5em;
+  font-size: 1em;
+  color: rgb(150, 150, 150);
+  font-family: monospace;
+}
+
+.enable-notifications {
+  height: 2.5em;
+  padding: 0.5em;
+  border-radius: 6px;
+  border: 0.5px solid rgb(81, 81, 81);
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-weight: bold;
+  margin-right: 2em;
+}
+
 .top-row {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
